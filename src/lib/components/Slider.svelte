@@ -37,8 +37,10 @@
 			{/if}
 		</div>
 	{/if}
-	<div class="anyui-slider-track" class:anyui-slider-glass={variant === 'glass'}>
-		<div class="anyui-slider-fill" style="width: {progress}%"></div>
+	<div class="anyui-slider-track-outer" class:anyui-slider-glass={variant === 'glass'}>
+		<div class="anyui-slider-track">
+			<div class="anyui-slider-fill" style="width: {progress}%"></div>
+		</div>
 		<input
 			type="range"
 			bind:value
@@ -55,7 +57,7 @@
 	.anyui-slider-wrapper {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: var(--any-slider-label-gap, 0.375rem);
 		width: 100%;
 	}
 
@@ -63,7 +65,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		font-size: 0.875rem;
+		font-size: var(--any-slider-label-size, 0.875rem);
 	}
 
 	.anyui-slider-label {
@@ -73,45 +75,56 @@
 
 	.anyui-slider-value {
 		font-family: var(--any-font-mono, monospace);
-		font-size: 0.8rem;
+		font-size: 0.75rem;
 		opacity: 0.7;
 		background: rgba(var(--any-glass-tint-r, 255), var(--any-glass-tint-g, 255), var(--any-glass-tint-b, 255), 0.1);
-		padding: 0.125rem 0.5rem;
+		padding: 0.1rem 0.425rem;
 		border-radius: var(--any-radius-full, 9999px);
 	}
 
-	.anyui-slider-track {
+	/* Outer container: holds track + input, provides padding for thumb overflow */
+	.anyui-slider-track-outer {
 		position: relative;
-		height: 6px;
-		border-radius: 3px;
-		background: rgba(var(--any-glass-tint-r, 255), var(--any-glass-tint-g, 255), var(--any-glass-tint-b, 255), 0.12);
-		overflow: visible;
+		height: var(--any-slider-height, 28px);
+		display: flex;
+		align-items: center;
 	}
 
 	.anyui-slider-glass {
-		backdrop-filter: blur(4px);
-		-webkit-backdrop-filter: blur(4px);
-		border: 1px solid rgba(var(--any-glass-tint-r, 255), var(--any-glass-tint-g, 255), var(--any-glass-tint-b, 255), 0.15);
+		border-radius: var(--any-slider-track-radius, 3px);
+	}
+
+	/* Visual track bar */
+	.anyui-slider-track {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		height: var(--any-slider-track-height, 5px);
+		border-radius: var(--any-slider-track-radius, 3px);
+		background: rgba(var(--any-glass-tint-r, 255), var(--any-glass-tint-g, 255), var(--any-glass-tint-b, 255), 0.12);
+		overflow: hidden;
+	}
+
+	.anyui-slider-glass .anyui-slider-track {
+		background: rgba(var(--any-glass-tint-r, 255), var(--any-glass-tint-g, 255), var(--any-glass-tint-b, 255), 0.15);
 	}
 
 	.anyui-slider-fill {
-		position: absolute;
-		top: 0;
-		left: 0;
 		height: 100%;
-		border-radius: 3px;
+		border-radius: var(--any-slider-track-radius, 3px);
 		background: linear-gradient(90deg, var(--any-color-primary, #3b82f6), var(--any-color-primary-400, #60a5fa));
-		pointer-events: none;
 		transition: width 50ms ease;
 	}
 
+	/* Native range input sits on top for interaction */
 	.anyui-slider-input {
 		position: absolute;
-		top: 50%;
+		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		transform: translateY(-50%);
 		-webkit-appearance: none;
 		appearance: none;
 		background: transparent;
@@ -122,13 +135,13 @@
 
 	.anyui-slider-input::-webkit-slider-thumb {
 		-webkit-appearance: none;
-		width: 18px;
-		height: 18px;
+		width: var(--any-slider-thumb-size, 16px);
+		height: var(--any-slider-thumb-size, 16px);
 		border-radius: 50%;
 		background: var(--any-color-primary, #3b82f6);
 		border: 2px solid rgba(255, 255, 255, 0.9);
 		box-shadow:
-			0 2px 6px rgba(0, 0, 0, 0.2),
+			0 1px 4px rgba(0, 0, 0, 0.2),
 			inset 0 1px 0 rgba(255, 255, 255, 0.3);
 		cursor: grab;
 		transition: transform 150ms ease, box-shadow 150ms ease;
@@ -137,7 +150,7 @@
 	.anyui-slider-input::-webkit-slider-thumb:hover {
 		transform: scale(1.15);
 		box-shadow:
-			0 3px 10px rgba(0, 0, 0, 0.25),
+			0 2px 8px rgba(0, 0, 0, 0.25),
 			inset 0 1px 0 rgba(255, 255, 255, 0.3);
 	}
 
@@ -147,13 +160,13 @@
 	}
 
 	.anyui-slider-input::-moz-range-thumb {
-		width: 18px;
-		height: 18px;
+		width: var(--any-slider-thumb-size, 16px);
+		height: var(--any-slider-thumb-size, 16px);
 		border-radius: 50%;
 		background: var(--any-color-primary, #3b82f6);
 		border: 2px solid rgba(255, 255, 255, 0.9);
 		box-shadow:
-			0 2px 6px rgba(0, 0, 0, 0.2),
+			0 1px 4px rgba(0, 0, 0, 0.2),
 			inset 0 1px 0 rgba(255, 255, 255, 0.3);
 		cursor: grab;
 		transition: transform 150ms ease;
@@ -166,7 +179,6 @@
 	.anyui-slider-input::-moz-range-track {
 		background: transparent;
 		border: none;
-		height: 6px;
 	}
 
 	.anyui-slider-input:focus-visible {
