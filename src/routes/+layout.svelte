@@ -17,8 +17,8 @@
 	class="anyui-app min-h-screen"
 	class:anyui-dark={isDark}
 >
-	<nav class="anyui-nav flex items-center gap-4 p-4">
-		<span class="text-sm font-bold opacity-60">anyUI</span>
+	<nav class="anyui-nav flex items-center gap-4 px-6 py-3">
+		<span class="text-base font-bold tracking-tight" style="opacity: 0.8">anyUI</span>
 		<div class="flex-1"></div>
 		<span class="text-sm opacity-50">Tenant:</span>
 		{#each tenants as t, i}
@@ -33,7 +33,7 @@
 	</nav>
 
 	<ThemeProvider tenant={activeTenant} global>
-		<main class="p-8">
+		<main class="px-6 py-8 md:px-10 lg:px-16">
 			{@render children()}
 		</main>
 	</ThemeProvider>
@@ -62,14 +62,17 @@
 	}
 
 	.anyui-nav {
+		position: sticky;
+		top: 0;
+		z-index: 50;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
+		backdrop-filter: blur(16px) saturate(1.5);
+		-webkit-backdrop-filter: blur(16px) saturate(1.5);
 		background: rgba(255, 255, 255, 0.08);
 	}
 
 	.anyui-dark .anyui-nav {
-		background: rgba(0, 0, 0, 0.2);
+		background: rgba(0, 0, 0, 0.3);
 		border-bottom-color: rgba(255, 255, 255, 0.08);
 	}
 

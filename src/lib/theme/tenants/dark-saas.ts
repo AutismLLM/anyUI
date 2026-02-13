@@ -9,10 +9,7 @@ export const darkSaasTenant: TenantConfigInput = {
 				sans: 'Space Grotesk, ui-sans-serif, system-ui, sans-serif',
 				mono: 'Fira Code, ui-monospace, monospace',
 			},
-			fontUrls: [
-				'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap',
-				'https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap',
-			],
+			fontUrls: [],
 		},
 		colors: {
 			primary: { 500: '#8b5cf6', DEFAULT: '#8b5cf6' },

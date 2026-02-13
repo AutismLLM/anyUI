@@ -80,9 +80,7 @@ export const defaultTokens: DesignTokens = {
 			sans: 'Inter, ui-sans-serif, system-ui, -apple-system, sans-serif',
 			mono: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace',
 		},
-		fontUrls: [
-			'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
-		],
+		fontUrls: [],
 		fontSize: {
 			xs: '0.75rem',
 			sm: '0.875rem',

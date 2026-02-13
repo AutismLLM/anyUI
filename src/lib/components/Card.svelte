@@ -59,26 +59,33 @@
 		overflow: hidden;
 		font-family: var(--any-font-sans, inherit);
 		color: var(--any-color-fg, #0f172a);
+		display: flex;
+		flex-direction: column;
 	}
 
 	.anyui-card-header {
-		border-bottom: 1px solid var(--any-color-border, #e2e8f0);
+		border-bottom: 1px solid rgba(var(--any-glass-tint-r, 255), var(--any-glass-tint-g, 255), var(--any-glass-tint-b, 255), 0.12);
+	}
+
+	.anyui-card-header + .anyui-card-body {
+		padding-top: 0;
 	}
 
 	.anyui-card-footer {
-		border-top: 1px solid var(--any-color-border, #e2e8f0);
+		border-top: 1px solid rgba(var(--any-glass-tint-r, 255), var(--any-glass-tint-g, 255), var(--any-glass-tint-b, 255), 0.12);
+		margin-top: auto;
 	}
 
 	:global(.anyui-card-elevated) {
 		background: var(--any-color-surface, #ffffff);
 		border-radius: var(--any-radius-lg, 0.75rem);
 		box-shadow: var(--any-shadow-md, 0 4px 6px rgba(0, 0, 0, 0.07));
-		border: 1px solid var(--any-color-border, #e2e8f0);
+		border: 1px solid rgba(var(--any-glass-tint-r, 255), var(--any-glass-tint-g, 255), var(--any-glass-tint-b, 255), 0.12);
 	}
 
 	:global(.anyui-card-outlined) {
 		background: transparent;
 		border-radius: var(--any-radius-lg, 0.75rem);
-		border: 1px solid var(--any-color-border, #e2e8f0);
+		border: 1px solid rgba(var(--any-glass-tint-r, 255), var(--any-glass-tint-g, 255), var(--any-glass-tint-b, 255), 0.2);
 	}
 </style>

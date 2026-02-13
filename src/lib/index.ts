@@ -1,5 +1,5 @@
 // Components
-export { Button, Card, Input } from './components/index.js';
+export { Button, Card, Input, Slider, Toggle, Select, Badge } from './components/index.js';
 
 // Theme
 export { ThemeProvider } from './theme/index.js';
