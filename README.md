@@ -1,11 +1,6 @@
-# anyUI
+# anyUI Important, 
 
-Important 
-
-NO SECRETS NEVER
-
-made for SVLETE 5 as main obejtive, 
-opinioneded UI, 
-
-with strong  Tenant Config  layer build on top of tailwind 
-
+- Open Source
+- made for SVELTE 5 as main objective
+- opinionated UI,
+- with strong Tenant Config layer build on top of tailwind
