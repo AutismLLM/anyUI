@@ -6,19 +6,60 @@ Glassmorphism-first component library for Svelte 5, powered by UnoCSS.
 
 ## What is anyUI?
 
-A Svelte 5 component library built around real glassmorphism — frosted glass surfaces with backdrop blur, inset shadows, light-edge gradients, and configurable opacity. Every glass parameter is a CSS custom property, adjustable per-tenant at runtime.
+A Svelte 5 component library built around real glassmorphism — frosted glass surfaces with backdrop blur, inset shadows, light-edge gradients, and configurable opacity. Every parameter is a CSS custom property, adjustable per-tenant at runtime.
 
 Built for B2B SaaS products where each customer (tenant) gets their own branded theme without separate builds.
 
-## Key Features
+## Architecture
 
-- **Real Glassmorphism** — backdrop-filter blur, inset shadows, ::before/::after light edges, not just "transparent background with border"
-- **Live Configurable** — every glass parameter (blur, opacity, radius, tint, edge glow) adjustable via CSS custom properties or UnoCSS utility classes
-- **Multi-Tenant Theming** — define tenant configs in TypeScript, ThemeProvider applies them as CSS custom properties at runtime
-- **Per-Tenant Fonts** — each tenant can specify different Google Fonts via `fontUrls`, dynamically loaded by ThemeProvider
-- **UnoCSS Preset** — custom `presetAnyUI` with glass rules, intensity variants, and dynamic overrides
-- **Svelte 5 Runes** — `$props()`, `$state`, `$derived`, `$bindable`, snippets throughout
-- **Zero Consumer Dependencies** — UnoCSS svelte-scoped preprocessor embeds styles into components at build time. Consumers just `npm install` and import
+Components are split by complexity:
+
+```
+src/lib/
+  components/
+    atoms/                  Smallest indivisible UI elements
+      Button.svelte           solid / outline / ghost / glass
+      Input.svelte            text input with glass variant
+      Badge.svelte            inline label (solid/outline/subtle/glass)
+      Toggle.svelte           on/off switch
+      Slider.svelte           range input with glass track
+      Select.svelte           custom dropdown with glass panel
+    molecules/              Small groups of atoms working together
+      (SearchBar, FormField, StatCard — coming soon)
+    organisms/              Complex composed sections
+      Card.svelte             glass / elevated / outlined with header/body/footer
+    index.ts                Barrel exports
+  theme/
+    tokens.ts               Default design tokens (colors, glass, typography)
+    merge.ts                Deep merge + resolveTenantConfig()
+    css-vars.ts             Tokens → CSS custom properties
+    context.svelte.ts       Svelte 5 reactive theme context
+    ThemeProvider.svelte     Runtime theming (global or scoped)
+    tenants/                Tenant preset files
+  presets/
+    preset-anyui.ts         UnoCSS preset: glass rules, shortcuts, preflights
+  types/
+    theme.ts                DesignTokens, GlassConfig, TenantConfig types
+```
+
+## CSS Custom Properties
+
+Every component is fully configurable via `--any-*` CSS variables. Set them on `:root`, on a container, or per-tenant via ThemeProvider.
+
+**Card:**
+`--any-card-padding-sm/md/lg`, `--any-card-radius`, `--any-card-gap`, `--any-card-divider-width`, `--any-card-divider-opacity`, `--any-card-border-width`, `--any-card-border-opacity`, `--any-card-header-body-ratio`, `--any-card-shadow`
+
+**Input:**
+`--any-input-padding`, `--any-input-radius`, `--any-input-font-size`, `--any-input-bg`, `--any-input-glass-opacity`, `--any-input-glass-blur`, `--any-input-error-color`, `--any-input-focus-ring-width`, `--any-input-focus-ring-color`
+
+**Slider:**
+`--any-slider-height`, `--any-slider-track-height`, `--any-slider-track-radius`, `--any-slider-thumb-size`, `--any-slider-label-gap`, `--any-slider-label-size`
+
+**Select:**
+`--any-select-padding`, `--any-select-radius`, `--any-select-font-size`, `--any-select-dropdown-max-h`, `--any-select-dropdown-blur`, `--any-select-dropdown-opacity`, `--any-select-option-padding`
+
+**Glass (global):**
+`--any-glass-blur`, `--any-glass-bg-opacity`, `--any-glass-border-opacity`, `--any-glass-tint-r/g/b`, `--any-glass-edge-opacity`, `--any-glass-radius`, `--any-glass-shadow`, `--any-glass-inset-shadow`
 
 ## Glass Utilities
 
@@ -36,28 +77,6 @@ Built for B2B SaaS products where each customer (tenant) gets their own branded 
 <div class="glass glass-blur-30 glass-opacity-25 glass-radius-16">
   Custom parameters
 </div>
-
-<!-- Disable glass (solid fallback) -->
-<div class="glass glass-disabled">No blur</div>
-```
-
-## Architecture
-
-```
-src/lib/
-  presets/preset-anyui.ts     UnoCSS preset: glass rules, shortcuts, preflights
-  types/theme.ts              DesignTokens, GlassConfig, TenantConfig types
-  theme/
-    tokens.ts                 Default design tokens
-    merge.ts                  Deep merge + resolveTenantConfig()
-    css-vars.ts               Tokens → CSS custom properties
-    context.svelte.ts         Svelte 5 reactive theme context
-    ThemeProvider.svelte       Runtime theming (global or scoped)
-    tenants/                  Tenant preset files
-  components/
-    Button.svelte             solid / outline / ghost / glass
-    Card.svelte               glass / elevated / outlined
-    Input.svelte              glass variant, $bindable value
 ```
 
 ## Tenant Config
@@ -75,12 +94,7 @@ const myTenant: TenantConfigInput = {
       foreground: '#f1f5f9',
     },
     typography: {
-      fontFamily: {
-        sans: 'Outfit, system-ui, sans-serif',
-      },
-      fontUrls: [
-        'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap',
-      ],
+      fontFamily: { sans: 'Outfit, system-ui, sans-serif' },
     },
     glass: {
       blur: 28,
@@ -98,9 +112,15 @@ const myTenant: TenantConfigInput = {
 </ThemeProvider>
 ```
 
+## Bundled Fonts
+
+All fonts are bundled as woff2 (latin subset, variable weight). No external requests to Google Fonts.
+
+Inter, Space Grotesk, Outfit, DM Sans, Sora, Plus Jakarta Sans.
+
 ## Tech Stack
 
-- **Svelte 5** with runes
+- **Svelte 5** with runes (`$props`, `$state`, `$derived`, `$bindable`)
 - **UnoCSS** with svelte-scoped preprocessor
 - **TypeScript** throughout
 - **@sveltejs/package** for library builds

@@ -1,7 +1,5 @@
-export { default as Button } from './Button.svelte';
-export { default as Card } from './Card.svelte';
-export { default as Input } from './Input.svelte';
-export { default as Slider } from './Slider.svelte';
-export { default as Toggle } from './Toggle.svelte';
-export { default as Select } from './Select.svelte';
-export { default as Badge } from './Badge.svelte';
+// Atoms — smallest indivisible UI elements
+export { Button, Input, Badge, Toggle, Slider, Select } from './atoms/index.js';
+
+// Organisms — complex composed sections
+export { Card } from './organisms/index.js';
