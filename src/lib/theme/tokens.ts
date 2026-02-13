@@ -65,18 +65,24 @@ export const defaultTokens: DesignTokens = {
 	},
 	glass: {
 		enabled: true,
-		blur: 12,
-		bgOpacity: 0.12,
-		borderOpacity: 0.2,
+		blur: 20,
+		bgOpacity: 0.18,
+		borderOpacity: 0.3,
 		tint: [255, 255, 255],
-		shadow: '0 8px 32px rgba(0,0,0,0.1)',
-		radius: 16,
+		shadow: '0 8px 32px rgba(0,0,0,0.12)',
+		insetShadow:
+			'inset 0 1px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(255,255,255,0.1), inset 0 0 16px 4px rgba(255,255,255,0.05)',
+		edgeOpacity: 0.8,
+		radius: 20,
 	},
 	typography: {
 		fontFamily: {
 			sans: 'Inter, ui-sans-serif, system-ui, -apple-system, sans-serif',
 			mono: 'JetBrains Mono, ui-monospace, SFMono-Regular, monospace',
 		},
+		fontUrls: [
+			'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
+		],
 		fontSize: {
 			xs: '0.75rem',
 			sm: '0.875rem',

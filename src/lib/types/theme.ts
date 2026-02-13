@@ -9,6 +9,8 @@ export interface GlassConfig {
 	borderOpacity: number;
 	tint: RGBTuple;
 	shadow: string;
+	insetShadow: string;
+	edgeOpacity: number;
 	radius: number;
 }
 
@@ -46,6 +48,8 @@ export interface DesignTokens {
 			sans: string;
 			mono: string;
 		};
+		/** Google Fonts or other external font URLs to load */
+		fontUrls: string[];
 		fontSize: {
 			xs: string;
 			sm: string;

@@ -47,6 +47,29 @@
 			}
 		};
 	});
+
+	// Dynamically load font URLs
+	$effect(() => {
+		if (typeof document === 'undefined') return;
+		const urls = resolved.tokens.typography.fontUrls;
+		const links: HTMLLinkElement[] = [];
+
+		for (const url of urls) {
+			// Skip if already loaded
+			if (document.querySelector(`link[href="${url}"]`)) continue;
+			const link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.href = url;
+			document.head.appendChild(link);
+			links.push(link);
+		}
+
+		return () => {
+			for (const link of links) {
+				link.remove();
+			}
+		};
+	});
 </script>
 
 {#if applyGlobal}

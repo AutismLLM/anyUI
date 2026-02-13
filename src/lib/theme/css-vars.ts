@@ -37,6 +37,8 @@ export function tokensToCSS(tokens: DesignTokens): Record<string, string> {
 	vars[`--${PREFIX}-glass-tint-g`] = `${tokens.glass.tint[1]}`;
 	vars[`--${PREFIX}-glass-tint-b`] = `${tokens.glass.tint[2]}`;
 	vars[`--${PREFIX}-glass-shadow`] = tokens.glass.shadow;
+	vars[`--${PREFIX}-glass-inset-shadow`] = tokens.glass.insetShadow;
+	vars[`--${PREFIX}-glass-edge-opacity`] = `${tokens.glass.edgeOpacity}`;
 	vars[`--${PREFIX}-glass-radius`] = `${tokens.glass.radius}px`;
 
 	// Typography
